@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Test</title>
+
+    <script>
+      let currAns = "apple";
+      const flag = [];
+      let correctAnswers = 0;
+
+      const questions = new Array(5);
+      const answers = new Array(5);
+      questions[0] = "What is 豬 in English?";
+      questions[1] = "What is 你好 in English?";
+      questions[2] = "What is 老師 in English?";
+      questions[3] = "What is 狗 in English?";
+      questions[4] = "What is 貓 in English?";
+      questions[5] = "What is 老 in English?";
+      answers[0] = "pig";
+      answers[1] = "hello";
+      answers[2] = "teacher";
+      answers[3] = "dog";
+      answers[4] = "cat";
+      answers[5] = "old";
+
+      function rightAnswer(word) {
+        const answer = document.getElementById("ans");
+        const message = document.getElementById("msg");
+        const counting = document.getElementById("counting");
+        const hideButton1 = document.getElementById("finishedButton1");
+
+        if (answer.value.toLowerCase() == word) {
+          message.innerHTML = "Hey, you've got it right";
+          hideButton1.style.display = "hidden";
+          correctAnswers++;
+        } else {
+          message.innerHTML = "Please, try again";
+        }
+      }
+
+      function nextQuestion() {
+        let q = document.getElementById("quiz");
+        let index;
+        const showButton1 = document.getElementById("finishedButton1");
+        if (flag.length === questions.length) {
+          programFinished();
+          alert("The program ended, please click");
+        } else {
+          do {
+            index = Math.floor(Math.random() * questions.length);
+          } while (flag.includes(index));
+
+          flag.push(index);
+          showButton1.style.display = "inline-block";
+          q.innerHTML = questions[index];
+          currAns = answers[index];
+          document.getElementById("msg").innerHTML = "";
+          clearInput();
+        }
+      }
+
+      function programFinished() {
+        const finished = document.getElementById("finished");
+        const finishedQuiz = document.getElementById("quiz");
+        const finishedInput = document.getElementById("ans");
+        const finishedButton1 = document.getElementById("finishedButton1");
+        const finishedButton2 = document.getElementById("finishedButton2");
+
+        finishedQuiz.style.display = "none";
+        finishedInput.style.display = "none";
+        finishedButton1.style.display = "none";
+        finishedButton2.style.display = "none";
+
+        finished.innerHTML = `Congratulations, you have ${correctAnswers} correct answers.`;
+      }
+
+      function clearInput() {
+        document.getElementById("ans").value = "";
+      }
+    </script>
+  </head>
+  <body>
+    <div id="quiz">What is 蘋果 in English?</div>
+    <h1 id="finished"></h1>
+    <input onclick="clearInput()" type="text" id="ans" />
+    <div id="msg"><br /></div>
+    <button id="finishedButton1" onclick="rightAnswer(currAns)">Submit</button>
+    <button id="finishedButton2" onclick="nextQuestion()">Next Question</button>
+    <br />
+    <h1 id="counting"></h1>
+  </body>
+</html>
