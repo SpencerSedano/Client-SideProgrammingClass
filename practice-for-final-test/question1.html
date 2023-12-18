@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice Question 1 test</title>
+  </head>
+  <style>
+    .hiding {
+      display: none;
+    }
+  </style>
+  <body>
+    <button class="changeIt">Change Image</button>
+    <img id="one" class="hiding" src="1.jpg" alt="" />
+    <img id="two" class="hiding" src="2.jpg" alt="" />
+    <img id="three" class="hiding" src="3.jpg" alt="" />
+    <img id="four" class="hiding" src="4.png" alt="" />
+  </body>
+  <script>
+    const changeBtn = document.querySelector(".changeIt");
+    const imgOne = document.querySelector("#one");
+    const imgTwo = document.querySelector("#two");
+    const imgThree = document.querySelector("#three");
+    const imgFour = document.querySelector("#four");
+
+    changeBtn.addEventListener("click", clickedIt);
+
+    function clickedIt() {
+      const anyNumber = Math.floor(Math.random() * 4);
+      console.log(anyNumber);
+      if (anyNumber == 0) {
+        imgOne.style.display = "block";
+        imgTwo.style.display = "none";
+        imgThree.style.display = "none";
+        imgFour.style.display = "none";
+      }
+      if (anyNumber == 1) {
+        imgOne.style.display = "none";
+        imgTwo.style.display = "block";
+        imgThree.style.display = "none";
+        imgFour.style.display = "none";
+      }
+      if (anyNumber == 2) {
+        imgOne.style.display = "none";
+        imgTwo.style.display = "none";
+        imgThree.style.display = "block";
+        imgFour.style.display = "none";
+      }
+      if (anyNumber == 3) {
+        imgOne.style.display = "none";
+        imgTwo.style.display = "none";
+        imgThree.style.display = "none";
+        imgFour.style.display = "block";
+      }
+    }
+  </script>
+</html>
