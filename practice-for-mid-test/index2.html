@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calling Vue.js</title>
+        <script src="vue3.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{greeting}}</h1>
+            <img
+                v-for="(img, index) in images"
+                :key="index"
+                :src="img.src"
+                :style="img.style"
+            />
+            <button @click="randomIt">Click It</button>
+        </div>
+
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        greeting: "Hello there",
+                        images: [
+                            { src: "1.jpg", style: { display: "none" } },
+                            { src: "2.jpg", style: { display: "none" } },
+                            { src: "3.jpg", style: { display: "none" } },
+                            { src: "4.jpg", style: { display: "none" } },
+                        ],
+                    };
+                },
+                methods: {
+                    randomIt() {
+                        const randomIndex = Math.floor(
+                            Math.random() * this.images.length
+                        );
+                        console.log(randomIndex);
+
+                        this.images.forEach((img) => {
+                            img.style.display = "none";
+                        });
+
+                        this.images[randomIndex].style.display = "block";
+                    },
+                },
+            });
+
+            app.mount("#app");
+        </script>
+    </body>
+</html>
