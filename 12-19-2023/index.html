@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="app">
+      <todo-app></todo-app>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            title: "Todo App",
+            newTask: "",
+          };
+        },
+      });
+
+      app.component("todoApp", {
+        data() {
+          return {
+            newTodo: "",
+            todos: [
+              { id: 1, text: "project", completed: false },
+              { id: 2, text: "homework", completed: false },
+              { id: 3, text: "shopping", completed: false },
+            ],
+          };
+        },
+        methods: {
+          addTodo() {
+            if (this.newTodo.trim() !== "") {
+              this.todos.push({
+                id: Date.now(),
+                text: this.newTodo,
+                completed: false,
+              });
+              this.newTodo = "";
+            }
+          },
+          removeTodo(id) {
+            this.todos = this.todos.filter((todo) => todo.id !== id);
+          },
+        },
+        template: `<div>
+          <h1>Todo App</h1>
+          <input v-model="newTodo" @keyup.enter="addTodo" />
+          <ul>
+            <todo-item v-for="todo in todos" :key="todo.id" :todo="todo" @remove="removeTodo"></todo-item>
+          </ul>
+        </div>`,
+      });
+
+      app.component("todo-item", {
+        props: {
+          todo: Object,
+        },
+        template: `<div>
+            <li>
+              <input type="checkbox" v-model="todo.completed"> {{todo.text}}
+              <button @click="$emit('remove', todo.id)">Done</button>
+              </li>
+          </div>`,
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
